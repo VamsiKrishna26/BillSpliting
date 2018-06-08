@@ -156,6 +156,7 @@ public class Calc extends AppCompatActivity {
         Intent it=new Intent(Calc.this,Result.class);
         Bundle b=new Bundle();
         b.putStringArray("result",result);
+        b.putString("num1",String.valueOf(result.length));
         it.putExtras(b);
         startActivity(it);
     }
