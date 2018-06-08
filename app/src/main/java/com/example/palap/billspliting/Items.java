@@ -19,7 +19,7 @@ public class Items extends AppCompatActivity {
     String names[];
     int itemsno;
     String set;
-    String items[];
+    int items[];
     int num;
     Button b1;
     @Override
@@ -45,7 +45,7 @@ public class Items extends AppCompatActivity {
         names=bundle.getStringArray("names");
         set=bundle.getString("itemsno");
         itemsno= Integer.valueOf(set);
-        items=new String[itemsno];
+        items=new int[itemsno];
         for(int i=0;i<itemsno;i++)
         {
             tv1=new EditText(l1.getContext());
@@ -64,12 +64,12 @@ public class Items extends AppCompatActivity {
                 for(int i=0;i<itemsno;i++)
                 {
                     tv1=(EditText)findViewById(i);
-                    items[i]=tv1.getText().toString();
+                    items[i]=Integer.parseInt(tv1.getText().toString());
                 }
                 b.putString("people", String.valueOf(num));
                 b.putStringArray("names",names);
                 b.putString("itemsno", String.valueOf(itemsno));
-                b.putStringArray("items",items);
+                b.putIntArray("items",items);
                 i1.putExtras(b);
                 startActivity(i1);
             }

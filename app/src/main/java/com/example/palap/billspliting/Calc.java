@@ -1,6 +1,7 @@
 package com.example.palap.billspliting;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
@@ -15,29 +16,46 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class Calc extends AppCompatActivity {
+
     TextView tv;
     GridLayout gridLayout;
     GridLayout.LayoutParams gLayoutParams;
     CheckBox checkBox;
     CheckBox[] checkBoxesStore;
     int value = 750;
-    int checkedCheckBoxes = 0;
+//    int checkedCheckBoxes = 0;
     float sum = 0f;
     int idValue = 1;
-    int result;
+//    int result;
     int row[],column[];
+    String names[];
+    int itemsno;
+    String set;
+    int money[];
+    int num;
+    String result[];
 
-    String[] names = {"Person A", "Person B", "Person C","Person D"};
-    String[] money = {"700", "300", "100", "600","900"};
-    int[] billForPerson = new int[names.length];
-
-
-
+//    String[] names = {"Person A", "Person B", "Person C","Person D"};
+//    String[] money = {"700", "300", "100", "600","900"};
+    int[] count;
+    int columnToBeUsed = 0;
+    double[] columnDivision;
+    int[] billForPerson;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calc);
 
+        Bundle bundle=getIntent().getExtras();
+        num= Integer.parseInt(bundle.getString("people"));
+        names=new String[num];
+        names=bundle.getStringArray("names");
+        set=bundle.getString("itemsno");
+        itemsno= Integer.valueOf(set);
+        money=new int[itemsno];
+        money=bundle.getIntArray("items");
+
+        result=new String[50];
         row = new int[40];
         column = new int[40];
         tv = new TextView(this);
@@ -46,6 +64,9 @@ public class Calc extends AppCompatActivity {
         gridLayout.setRowCount(names.length + 1);
         checkBox = new CheckBox(this);
         checkBoxesStore = new CheckBox[50];
+        count = new int[50];
+        billForPerson = new int[50];
+        columnDivision = new double[50];
 
         //To add the names of people
         for (int i = 0; i < names.length; i++) {
@@ -96,15 +117,49 @@ public class Calc extends AppCompatActivity {
     }
     @SuppressLint("ResourceType")
     public void totalSum(View v) {
+        for (int i =0;i<money.length;i++){
+            count[i] = 0;
+            columnDivision[i]=0;
+            columnToBeUsed = 0;
+            billForPerson[i] = 0;
+        }
         for (int i=0;i<(money.length * names.length);i++) {
             if (checkBoxesStore[i].isChecked()) {
-                for (int j = 1; j <= money.length; j++){
-                    if (getColumn(j + 1) == j)
-                        Toast.makeText(Calc.this, money[j - 1] + "", Toast.LENGTH_SHORT).show();
+                for (int j = 1; j <= money.length; j++) {
+                    if (getColumn(i + 1) == j) {
+                        count[j-1]++;
+                    }
                 }
             }
         }
+        for (int i =0;i<money.length;i++){
+            columnDivision[i] = (double)Integer.valueOf(money[i])/count[i];
+        }
+        for (int i=0;i<(money.length * names.length);i++) {
+            if (checkBoxesStore[i].isChecked()) {
+                for (int j = 1; j <= names.length; j++) {
+                    if (getRow(i + 1) == j) {
+                        for (int k = 1; k <= money.length; k++) {
+                            if (getColumn(i + 1) == k) {
+                                billForPerson[j-1]+=columnDivision[k-1];
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        for(int m =0 ;m<names.length;m++){
+//            Toast.makeText(Calc.this,String.valueOf(names[m])+" must pay Rs. "+billForPerson[m]+"",Toast.LENGTH_SHORT).show();
+            result[m]=String.valueOf(names[m])+"must pay Rs."+billForPerson[m];
+        }
+
+        Intent it=new Intent(Calc.this,Result.class);
+        Bundle b=new Bundle();
+        b.putStringArray("result",result);
+        it.putExtras(b);
+        startActivity(it);
     }
+
 
     public void setRowColumnPosition(int rowV,int columnV,int id) {
         row[id] = rowV;

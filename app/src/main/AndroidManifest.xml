@@ -19,7 +19,8 @@
         <activity android:name=".People" />
         <activity android:name=".Food" />
         <activity android:name=".Items" />
-        <activity android:name=".Calc"></activity>
+        <activity android:name=".Calc" />
+        <activity android:name=".Result"></activity>
     </application>
 
 </manifest>
