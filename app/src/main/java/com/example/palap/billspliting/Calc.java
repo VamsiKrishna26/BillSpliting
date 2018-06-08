@@ -85,7 +85,7 @@ public class Calc extends AppCompatActivity {
         for (int i = 0; i < money.length; i++) {
             gLayoutParams = new GridLayout.LayoutParams(GridLayout.spec(0), GridLayout.spec(i + 1));
             tv = new TextView(this);
-            tv.setText(money[i]);
+            tv.setText(String.valueOf(money[i]));
             tv.setTextSize(18);
             tv.setTextColor(Color.parseColor("#000000"));
             tv.setGravity(Gravity.CENTER_HORIZONTAL);
@@ -150,7 +150,7 @@ public class Calc extends AppCompatActivity {
         }
         for(int m =0 ;m<names.length;m++){
 //            Toast.makeText(Calc.this,String.valueOf(names[m])+" must pay Rs. "+billForPerson[m]+"",Toast.LENGTH_SHORT).show();
-            result[m]=String.valueOf(names[m])+"must pay Rs."+billForPerson[m];
+            result[m]=String.valueOf(names[m])+" must pay Rs."+billForPerson[m];
         }
 
         Intent it=new Intent(Calc.this,Result.class);

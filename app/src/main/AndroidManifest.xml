@@ -9,18 +9,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".People" />
-        <activity android:name=".Food" />
-        <activity android:name=".Items" />
-        <activity android:name=".Calc" />
-        <activity android:name=".Result"></activity>
+        <activity android:name=".People" android:screenOrientation="portrait"/>
+        <activity android:name=".Food" android:screenOrientation="portrait"/>
+        <activity android:name=".Items" android:screenOrientation="portrait"/>
+        <activity android:name=".Calc" android:screenOrientation="portrait"/>
+        <activity android:name=".Result" android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
