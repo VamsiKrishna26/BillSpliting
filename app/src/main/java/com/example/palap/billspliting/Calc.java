@@ -148,9 +148,12 @@ public class Calc extends AppCompatActivity {
                 }
             }
         }
+        int k=1;
         for(int m =0 ;m<names.length;m++){
+
 //            Toast.makeText(Calc.this,String.valueOf(names[m])+" must pay Rs. "+billForPerson[m]+"",Toast.LENGTH_SHORT).show();
-            result[m]=String.valueOf(names[m])+" must pay Rs."+billForPerson[m];
+            result[m]=k+". "+String.valueOf(names[m])+" is with bill Rs."+billForPerson[m]+"\nand with GST included Rs."+((billForPerson[m])+(billForPerson[m]*0.05));
+            k++;
         }
 
         Intent it=new Intent(Calc.this,Result.class);

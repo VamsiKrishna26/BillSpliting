@@ -11,6 +11,7 @@ public class Result extends AppCompatActivity {
     LinearLayout l1;
     TextView tv;
     String result[];
+//    int gst,sum,result1;
     int num,i;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
